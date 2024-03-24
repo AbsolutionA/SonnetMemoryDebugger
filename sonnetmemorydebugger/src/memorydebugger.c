@@ -51,7 +51,6 @@ void s_debug_memory_free(void *buffer, char *file, uint32_t line) {
         fprintf(stderr, "Nothing is allocated!");
     }
     else {
-        free(buffer);
         for (uint32_t i = 0; i < page_iterator; i++) {
             if (list[i].address == buffer) {
                 list[i].free_status = 1;
@@ -59,6 +58,7 @@ void s_debug_memory_free(void *buffer, char *file, uint32_t line) {
                 list[i].free_line = line;
             }
         }
+        free(buffer);
     }
 }
 
@@ -74,6 +74,6 @@ void s_debug_memory_info_print() {
                         list[i].count, list[i].address,
                         list[i].file, list[i].line, 
                         list[i].size, list[i].free_status, 
-                        list[i].free_file, list[i].line);
+                        list[i].free_file, list[i].free_line);
     }
 }
